@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>Google Maps Multiple Markers</title>
+<script src="http://maps.google.com/maps/api/js?sensor=false"
+type="text/javascript"></script>
+</head>
+<body>
+<div id="map" style="width: 1000px; height: 700px;"></div>
+<script type="text/javascript">
+var locations = [['Italy, Deaths = 97507 , Confirmed = 0, Recovered = 0', 41.87194, 12.56738, 1], ['Greece, Deaths = 6468 , Confirmed = 179802, Recovered = 93764', 39.0742, 21.8243, 1], ['Germany, Deaths = 0 , Confirmed = 0, Recovered = 0', 51.165690999999995, 10.451526, 1]];
+var map = new google.maps.Map(document.getElementById('map'), {
+zoom : 5,
+center : new google.maps.LatLng(41.87194, 12.56738),
+mapTypeId: google.maps.MapTypeId.ROADMAP
+});
+var infowindow = new google.maps.InfoWindow();
+var marker, i;
+for (i = 0; i < locations.length; i++) {
+marker = new google.maps.Marker({
+position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+map: map
+});
+google.maps.event.addListener(marker, 'click', (function(marker, i) {
+return function() {
+infowindow.setContent(locations[i][0]);
+infowindow.open(map, marker);
+}
+})(marker, i));
+}
+</script>
+</body>
+</html>

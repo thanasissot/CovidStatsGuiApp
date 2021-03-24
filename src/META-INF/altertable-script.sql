@@ -1,0 +1,1 @@
+alter table COVIDDATA add constraint COVIDDATA_UINDEX unique (COUNTRY,TRNDATE,DATAKIND)
